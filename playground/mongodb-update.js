@@ -1,0 +1,24 @@
+const { MongoClient, ObjectID } = require('mongodb');
+
+const obj = new ObjectID();
+console.log(obj);
+
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
+  if (err) {
+    return console.log('Unable to connect to MongoDB server');
+  }
+  console.log('Connected to MongoDB server');
+
+  db.collection('Users').findOneAndUpdate({
+    _id: new ObjectID('5c4ba29c31bd907b3a21969c')
+  }, {
+    $set: {name: 'Amir'},
+    $inc: {age: 1}
+  }, {
+    returnOriginal: false
+  }).then((result) => {
+    console.log(result);
+  });
+
+  // db.close();
+});
